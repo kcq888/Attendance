@@ -1,10 +1,13 @@
 import 'package:attendant151/src/authentication/firebase_auth_repository.dart';
+import 'package:attendant151/src/models/member.dart';
 import 'package:attendant151/src/routes/go_router_refresh_stream.dart';
 import 'package:attendant151/src/routes/scaffold_with_nested_navigation.dart';
 import 'package:attendant151/src/screens/custom_profile_screen.dart';
 import 'package:attendant151/src/screens/attendant_screen.dart';
+import 'package:attendant151/src/screens/edit_member.dart';
 import 'package:attendant151/src/screens/login_screen.dart';
 import 'package:attendant151/src/screens/member_screen.dart';
+import 'package:attendant151/src/screens/memberdetails.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -16,9 +19,20 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _attendantsNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'attendants');
 final _membersNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'members');
+final _memberDetailNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'memberdetail');
 final _accountNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'account');
 
-enum AppRoute { signin, attendants, members, addmember, editmember, profile }
+enum AppRoute {
+  signin,
+  attendants,
+  newdate,
+  members,
+  memberdetail,
+  addmember,
+  editmember,
+  profile,
+}
 
 @riverpod
 GoRouter goRouter(GoRouterRef ref) {
@@ -61,21 +75,52 @@ GoRouter goRouter(GoRouterRef ref) {
               routes: [
                 GoRoute(
                   path: '/attendants',
-                  name: AppRoute.members.name,
+                  name: AppRoute.attendants.name,
                   pageBuilder: (context, state) => const NoTransitionPage(
                     child: AttendantScreen(),
                   ),
-                ),
+                )
               ],
             ),
             StatefulShellBranch(
               navigatorKey: _attendantsNavigatorKey,
               routes: [
                 GoRoute(
-                  path: '/members',
-                  name: AppRoute.attendants.name,
-                  pageBuilder: (context, state) => const NoTransitionPage(
-                    child: MemberScreen(),
+                    path: '/members',
+                    name: AppRoute.members.name,
+                    pageBuilder: (context, state) => const NoTransitionPage(
+                          child: MemberScreen(),
+                        ),
+                    routes: [
+                      GoRoute(
+                          path: 'add',
+                          name: AppRoute.addmember.name,
+                          parentNavigatorKey: _rootNavigatorKey,
+                          pageBuilder: (context, state) {
+                            return const MaterialPage(
+                                fullscreenDialog: true,
+                                child: EditMemberScreen());
+                          }),
+                      GoRoute(
+                        path: 'edit',
+                        name: AppRoute.editmember.name,
+                        pageBuilder: (context, state) {
+                          final member = state.extra as Member;
+                          return MaterialPage(
+                              child: EditMemberScreen(member: member));
+                        },
+                      )
+                    ]),
+              ],
+            ),
+            StatefulShellBranch(
+              navigatorKey: _memberDetailNavigatorKey,
+              routes: [
+                GoRoute(
+                  path: '/memberdetail',
+                  name: AppRoute.memberdetail.name,
+                  pageBuilder: (context, state) => NoTransitionPage(
+                    child: MemberDetailScreen(member: state.extra! as Member),
                   ),
                 ),
               ],

@@ -27,7 +27,8 @@ class Attendant extends Equatable {
     final rfid = data['RFIDTag'] as String;
     final date = data['Date'] as String;
     final signin = data['SignIn'] as Timestamp;
-    final signout = data['SignOut'] as Timestamp;
+    final signout =
+        data['HasSignOut'] ? data['SignOut'] as Timestamp : Timestamp.now();
     final hassignout = data['HasSignOut'] as bool;
 
     return Attendant(name, rfid, date, signin, signout, hassignout);

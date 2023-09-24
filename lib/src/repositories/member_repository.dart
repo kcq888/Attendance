@@ -10,6 +10,15 @@ class MemberRepository {
 
   static const String _members = 'Season2023-2024/members/rfids';
 
+  // Add member
+  Future<void> addMember(
+      {required firstname, required lastname, required rfid}) async {
+    _firestore
+        .collection(_members)
+        .doc(rfid)
+        .set({'First': firstname, 'Last': lastname, 'RFIDTag': rfid});
+  }
+
   Stream get members => _firestore.collection(_members).snapshots();
 
   Stream<Member> watchMember({required doc}) => _firestore
