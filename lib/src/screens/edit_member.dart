@@ -61,7 +61,7 @@ class _EditMemberScreenState extends ConsumerState<EditMemberScreen> {
         title: Text(widget.member == null ? 'New Member' : 'Edit Member'),
         actions: <Widget>[
           TextButton(
-              onPressed: () => {},
+              onPressed: () => _submit(),
               child: const Text('Save',
                   style: TextStyle(fontSize: 18, color: Colors.white)))
         ],

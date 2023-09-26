@@ -1,4 +1,4 @@
 # Tough Techs 151
 
 ## Overview
-This project contains the mobile attendant app.
+This project contains the mobile attendant app for Touch Techs 151 FIRST Robotics Team.

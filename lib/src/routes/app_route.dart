@@ -50,6 +50,7 @@ GoRouter goRouter(GoRouterRef ref) {
         } else {
           if (state.uri.path.startsWith('/attendants') ||
               state.uri.path.startsWith('/members') ||
+              state.uri.path.startsWith('/memberdetail') ||
               state.uri.path.startsWith('/account')) {
             return '/signIn';
           }
@@ -109,22 +110,30 @@ GoRouter goRouter(GoRouterRef ref) {
                           return MaterialPage(
                               child: EditMemberScreen(member: member));
                         },
+                      ),
+                      GoRoute(
+                        path: 'detail',
+                        name: AppRoute.memberdetail.name,
+                        pageBuilder: (context, state) => NoTransitionPage(
+                          child: MemberDetailScreen(
+                              member: state.extra! as Member),
+                        ),
                       )
                     ]),
               ],
             ),
-            StatefulShellBranch(
-              navigatorKey: _memberDetailNavigatorKey,
-              routes: [
-                GoRoute(
-                  path: '/memberdetail',
-                  name: AppRoute.memberdetail.name,
-                  pageBuilder: (context, state) => NoTransitionPage(
-                    child: MemberDetailScreen(member: state.extra! as Member),
-                  ),
-                ),
-              ],
-            ),
+            // StatefulShellBranch(
+            //   navigatorKey: _memberDetailNavigatorKey,
+            //   routes: [
+            //     GoRoute(
+            //       path: '/memberdetail',
+            //       name: AppRoute.memberdetail.name,
+            //       pageBuilder: (context, state) => NoTransitionPage(
+            //         child: MemberDetailScreen(member: state.extra! as Member),
+            //       ),
+            //     ),
+            //   ],
+            // ),
             StatefulShellBranch(
               navigatorKey: _accountNavigatorKey,
               routes: [

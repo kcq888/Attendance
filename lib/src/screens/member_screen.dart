@@ -1,5 +1,4 @@
 import 'package:attendant151/src/common_widgets/empty_content.dart';
-import 'package:attendant151/src/common_widgets/list_items_builder.dart';
 import 'package:attendant151/src/models/member.dart';
 import 'package:attendant151/src/routes/app_route.dart';
 import 'package:attendant151/src/services/member_service.dart';
@@ -58,24 +57,24 @@ class MemberListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SlideMenu(
-      menuItems: <Widget>[
-        Container(
-          color: Colors.black12,
-          child: IconButton(
-              icon: const Icon(Icons.edit),
-              onPressed: () =>
-                  context.goNamed(AppRoute.editmember.name, extra: member)),
-        ),
-        Container(
-          color: Colors.red,
-          child: IconButton(
-            color: Colors.white,
-            icon: const Icon(Icons.delete),
-            onPressed: () {},
+        menuItems: <Widget>[
+          Container(
+            color: Colors.black12,
+            child: IconButton(
+                icon: const Icon(Icons.edit),
+                onPressed: () =>
+                    context.goNamed(AppRoute.editmember.name, extra: member)),
           ),
-        )
-      ],
-      child: ListTile(
+          Container(
+            color: Colors.red,
+            child: IconButton(
+              color: Colors.white,
+              icon: const Icon(Icons.delete),
+              onPressed: () => showAlertDialog(context),
+            ),
+          )
+        ],
+        child: ListTile(
           title: Text(
             '${member.firstname} ${member.lastname}',
             style: const TextStyle(fontWeight: FontWeight.bold),
@@ -85,8 +84,9 @@ class MemberListTile extends StatelessWidget {
             const Spacer(),
             Text(member.rfid)
           ]),
-          onTap: () => context.go('/memberDetail', extra: member)),
-    );
+          onTap: () =>
+              context.goNamed(AppRoute.memberdetail.name, extra: member),
+        ));
   }
 }
 
@@ -174,4 +174,32 @@ class _SlideMenuState extends State<SlideMenu>
       );
     }));
   }
+}
+
+showAlertDialog(BuildContext context) {
+  // set up the buttons
+  Widget cancelButton = TextButton(
+    child: const Text("Cancel"),
+    onPressed: () {},
+  );
+  Widget continueButton = TextButton(
+    child: const Text("OK"),
+    onPressed: () {},
+  );
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: const Text("Delete Member"),
+    content: const Text("Are you sure that you want to delete?"),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
