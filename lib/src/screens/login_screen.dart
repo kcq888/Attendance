@@ -52,6 +52,14 @@ class LoginScreen extends ConsumerWidget {
             ),
           );
         },
+        actions: [
+          AuthStateChangeAction<SignedIn>((context, state) {
+            if (!state.user!.emailVerified) {
+              String? signInMsg = state.user!.email;
+              SnackBar(content: Text(signInMsg!));
+            }
+          })
+        ],
       ),
     );
   }

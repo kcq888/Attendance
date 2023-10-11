@@ -1,8 +1,10 @@
 import 'package:attendant151/src/common_widgets/responsive_center.dart';
 import 'package:attendant151/src/constants/breakpoints.dart';
 import 'package:attendant151/src/models/member.dart';
+import 'package:attendant151/src/screens/edit_member_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class EditMemberScreen extends ConsumerStatefulWidget {
   const EditMemberScreen({super.key, this.member});
@@ -41,16 +43,14 @@ class _EditMemberScreenState extends ConsumerState<EditMemberScreen> {
 
   Future<void> _submit() async {
     if (_validateAndSaveForm()) {
-      // final success =
-      //     await ref.read(editJobScreenControllerProvider.notifier).submit(
-      //           jobId: widget.jobId,
-      //           oldJob: widget.job,
-      //           name: _name ?? '',
-      //           ratePerHour: _ratePerHour ?? 0,
-      //         );
-      // if (success && mounted) {
-      //   context.pop();
-      // }
+      final success = await ref
+          .read(editMemberScreenControllerProvider.notifier)
+          .submit(widget.member,
+              firstname: _firstname, lastname: _lastname, rfid: _rfid);
+
+      if (success && mounted) {
+        context.pop();
+      }
     }
   }
 
@@ -87,36 +87,37 @@ class _EditMemberScreenState extends ConsumerState<EditMemberScreen> {
 
   Widget _buildMemberForm() {
     return Form(
+        key: _formKey,
         child: Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        TextFormField(
-          decoration: const InputDecoration(labelText: 'First Name'),
-          keyboardAppearance: Brightness.light,
-          initialValue: _firstname,
-          validator: (value) =>
-              (value ?? '').isNotEmpty ? null : 'Name can\'t be empty',
-          onSaved: (value) => _firstname = value,
-        ),
-        TextFormField(
-          decoration: const InputDecoration(labelText: 'Last Name'),
-          keyboardAppearance: Brightness.light,
-          initialValue: _lastname,
-          validator: (value) =>
-              (value ?? '').isNotEmpty ? null : 'Name can\'t be empty',
-          onSaved: (value) => _lastname = value,
-        ),
-        TextFormField(
-          decoration: const InputDecoration(labelText: 'RFID'),
-          keyboardAppearance: Brightness.light,
-          initialValue: _rfid,
-          keyboardType: const TextInputType.numberWithOptions(
-            signed: false,
-            decimal: false,
-          ),
-          onSaved: (value) => _rfid,
-        ),
-      ],
-    ));
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            TextFormField(
+              decoration: const InputDecoration(labelText: 'First Name'),
+              keyboardAppearance: Brightness.light,
+              initialValue: _firstname,
+              validator: (value) =>
+                  (value ?? '').isNotEmpty ? null : 'Name can\'t be empty',
+              onSaved: (value) => _firstname = value,
+            ),
+            TextFormField(
+              decoration: const InputDecoration(labelText: 'Last Name'),
+              keyboardAppearance: Brightness.light,
+              initialValue: _lastname,
+              validator: (value) =>
+                  (value ?? '').isNotEmpty ? null : 'Name can\'t be empty',
+              onSaved: (value) => _lastname = value,
+            ),
+            TextFormField(
+              decoration: const InputDecoration(labelText: 'RFID'),
+              keyboardAppearance: Brightness.light,
+              initialValue: _rfid,
+              keyboardType: const TextInputType.numberWithOptions(
+                signed: false,
+                decimal: false,
+              ),
+              onSaved: (value) => _rfid,
+            ),
+          ],
+        ));
   }
 }

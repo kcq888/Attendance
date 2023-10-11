@@ -19,6 +19,20 @@ class MemberRepository {
         .set({'First': firstname, 'Last': lastname, 'RFIDTag': rfid});
   }
 
+  // Update member
+  Future<void> updateMember(
+      {required firstname, required lastname, required rfid}) async {
+    _firestore
+        .collection(_members)
+        .doc(rfid)
+        .update({'First': firstname, 'Last': lastname, 'RFIDTag': rfid});
+  }
+
+  // Delete member
+  Future<void> deleteMember({required rfid}) async {
+    _firestore.collection(_members).doc(rfid).delete();
+  }
+
   Stream get members => _firestore.collection(_members).snapshots();
 
   Stream<Member> watchMember({required doc}) => _firestore
