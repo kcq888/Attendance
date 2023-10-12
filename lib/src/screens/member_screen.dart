@@ -2,6 +2,7 @@ import 'package:attendant151/src/common_widgets/empty_content.dart';
 import 'package:attendant151/src/common_widgets/slide_memu.dart';
 import 'package:attendant151/src/models/member.dart';
 import 'package:attendant151/src/routes/app_route.dart';
+import 'package:attendant151/src/screens/member_screen_controller.dart';
 import 'package:attendant151/src/services/member_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -48,12 +49,18 @@ class MemberScreen extends ConsumerWidget {
   }
 }
 
-class MemberListTile extends StatelessWidget {
+class MemberListTile extends ConsumerWidget {
   const MemberListTile({Key? key, required this.member}) : super(key: key);
   final Member member;
 
+  Future<void> _deleteMember(WidgetRef ref) async {
+    await ref
+        .read(memberScreenControllerProvider.notifier)
+        .deleteMember(member);
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SlideMenu(
         menuItems: <Widget>[
           Container(
@@ -72,7 +79,7 @@ class MemberListTile extends StatelessWidget {
                     context: context,
                     builder: (BuildContext context) {
                       return buildAlertDialog(context);
-                    }).then((value) => null)),
+                    }).then((value) => _deleteMember(ref))),
           )
         ],
         child: ListTile(
