@@ -16,21 +16,27 @@ class MemberRepository {
     _firestore
         .collection(_members)
         .doc(rfid)
-        .set({'First': firstname, 'Last': lastname, 'RFIDTag': rfid});
+        .set({'First': firstname, 'Last': lastname, 'RFIDTag': rfid}).onError(
+            (error, stackTrace) => null);
   }
 
   // Update member
   Future<void> updateMember(
       {required firstname, required lastname, required rfid}) async {
-    _firestore
-        .collection(_members)
-        .doc(rfid)
-        .update({'First': firstname, 'Last': lastname, 'RFIDTag': rfid});
+    _firestore.collection(_members).doc(rfid).update({
+      'First': firstname,
+      'Last': lastname,
+      'RFIDTag': rfid
+    }).onError((error, stackTrace) => null);
   }
 
   // Delete member
   Future<void> deleteMember({required rfid}) async {
-    _firestore.collection(_members).doc(rfid).delete();
+    _firestore
+        .collection(_members)
+        .doc(rfid)
+        .delete()
+        .onError((error, stackTrace) => null);
   }
 
   Stream get members => _firestore.collection(_members).snapshots();
@@ -49,9 +55,13 @@ class MemberRepository {
       .map((snapshot) => snapshot.docs.map((doc) => doc.data()).toList());
 
   Query<Member> queryMembers() {
-    Query<Member> query = _firestore.collection(_members).withConverter<Member>(
-        fromFirestore: (snapshot, _) => Member.fromMap(snapshot, snapshot.id),
-        toFirestore: (member, _) => member.toMap());
+    Query<Member> query = _firestore
+        .collection(_members)
+        .orderBy("First")
+        .withConverter<Member>(
+            fromFirestore: (snapshot, _) =>
+                Member.fromMap(snapshot, snapshot.id),
+            toFirestore: (member, _) => member.toMap());
 
     return query;
   }

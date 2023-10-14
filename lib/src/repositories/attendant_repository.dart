@@ -38,6 +38,7 @@ class AttendantRepository {
         (queryType == QueryType.queryDate) ? 'Date' : 'RFIDTag';
     Query<Attendant> query = _firestore
         .collection(_season)
+        .orderBy("Name")
         .where(queryFilter, isEqualTo: type)
         .withConverter<Attendant>(
             fromFirestore: (snapsnot, _) =>

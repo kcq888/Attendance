@@ -19,8 +19,6 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _attendantsNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'attendants');
 final _membersNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'members');
-final _memberDetailNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: 'memberdetail');
 final _accountNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'account');
 
 enum AppRoute {
@@ -122,18 +120,6 @@ GoRouter goRouter(GoRouterRef ref) {
                     ]),
               ],
             ),
-            // StatefulShellBranch(
-            //   navigatorKey: _memberDetailNavigatorKey,
-            //   routes: [
-            //     GoRoute(
-            //       path: '/memberdetail',
-            //       name: AppRoute.memberdetail.name,
-            //       pageBuilder: (context, state) => NoTransitionPage(
-            //         child: MemberDetailScreen(member: state.extra! as Member),
-            //       ),
-            //     ),
-            //   ],
-            // ),
             StatefulShellBranch(
               navigatorKey: _accountNavigatorKey,
               routes: [
