@@ -1,0 +1,86 @@
+{
+  "attendanceTitle": "Tough Techs 151 Attendance",
+  "@attendanceTitle": {
+    "description": "Team Attendance"
+  },
+  "attendanceOfTheDay": "Attendance of the Day",
+  "@attendanceOfTheDay": {
+    "description": "Attendance of the choosen Day"
+  },
+  "signin": "SignIn",
+  "@signin": {
+    "description": "Signin lable"
+  },
+  "signout": "SignOut",
+  "@signout": {
+    "description": "Signout lable"
+  },
+  "userprofile": "User Profile",
+  "@userprofile": {
+    "description": "User Profile lable"
+  },
+  "hasnotsignout": "Has not been sign out",
+  "@hasnotsignout": {
+    "description": "Has not been sign out label"
+  },
+  "pleaseSignin": "Welcome to Tough Techs Attendance, please sign in!",
+  "@pleaseSignin": {
+    "description": "Please sign in text"
+  },
+  "pleaseSignup": "Welcome to Tough Techs Attendance, please sign up!",
+  "@pleaseSignup": {
+    "description": "Please sign up text"
+  },
+  "terms": "By signing in, you agree to our terms and conditions.",
+  "@terms": {
+    "description": "Sign in terms and conditions text"
+  },
+  "newMember": "New Member",
+  "@newMember": {
+    "description": "New Member label"
+  },
+  "editMember": "Edit Member",
+  "@editMember": {
+    "description": "Edit Member label"
+  },
+  "saveMember": "Save",
+  "@saveMember": {
+    "description": "Save label for saving changes to either edit or new member"
+  },
+  "members": "Members",
+  "@members": {
+    "description": "members label"
+  },
+  "somethingWentWrongTitle": "Something went wrong",
+  "@somethingWentWrongTitle": {
+    "description": "Something went wrong title"
+  },
+  "somethingWentWrongMsg": "Can\\'t load items right now",
+  "@somethingWentWrongMsg": {
+    "description": "message is used in explaining the error"
+  },
+  "memberDetailsTitle": "Member Attendance Details",
+  "@memberDetailsTitle": {
+    "description": "member attendance detail title"
+  },
+  "cancelbtn": "Cancel",
+  "@cancelbtn": {
+    "description": "Cancel button text"
+  },
+  "okbtn": "OK",
+  "@okbtn": {
+    "description": "okay button text"
+  },
+  "deleteMemberTitle": "Delete Member",
+  "@deleteMemberTitle": {
+    "description": "Delete member title text"
+  },
+  "deleteOK": "Are you sure that you want to delete?",
+  "@deleteOK": {
+    "description": "delete confirmation text"
+  },
+  "rfidSubtitle": "RFID",
+  "@rfidSubtitle": {
+    "description": "RFID subtitle text"
+  }
+}

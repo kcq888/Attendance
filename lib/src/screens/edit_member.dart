@@ -2,6 +2,7 @@ import 'package:attendance/src/common_widgets/responsive_center.dart';
 import 'package:attendance/src/constants/breakpoints.dart';
 import 'package:attendance/src/models/member.dart';
 import 'package:attendance/src/screens/edit_member_screen_controller.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -58,12 +59,14 @@ class _EditMemberScreenState extends ConsumerState<EditMemberScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.member == null ? 'New Member' : 'Edit Member'),
+        title: Text(widget.member == null
+            ? AppLocalizations.of(context)!.newMember
+            : AppLocalizations.of(context)!.editMember),
         actions: <Widget>[
           TextButton(
               onPressed: () => _submit(),
-              child: const Text('Save',
-                  style: TextStyle(fontSize: 18, color: Colors.white)))
+              child: Text(AppLocalizations.of(context)!.saveMember,
+                  style: const TextStyle(fontSize: 18, color: Colors.white)))
         ],
       ),
       body: _buildMemberEditContent(),
