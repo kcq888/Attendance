@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:attendance/src/localization/string_hardcoded.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // Stateful navigation based on:
 // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart
@@ -65,17 +65,17 @@ class ScaffoldWithBottomNavBar extends StatelessWidget {
           NavigationDestination(
             icon: const Icon(Icons.work_outline),
             selectedIcon: const Icon(Icons.work),
-            label: 'Attendances'.hardcoded,
+            label: AppLocalizations.of(context)!.attendanceNavigationTitle,
           ),
           NavigationDestination(
             icon: const Icon(Icons.view_headline_outlined),
             selectedIcon: const Icon(Icons.view_headline),
-            label: 'Members'.hardcoded,
+            label: AppLocalizations.of(context)!.memberNavigationTitle,
           ),
           NavigationDestination(
             icon: const Icon(Icons.person_outline),
             selectedIcon: const Icon(Icons.person),
-            label: 'Account'.hardcoded,
+            label: AppLocalizations.of(context)!.accountNavigationTitle,
           ),
         ],
         onDestinationSelected: onDestinationSelected,
@@ -108,17 +108,20 @@ class ScaffoldWithNavigationRail extends StatelessWidget {
               NavigationRailDestination(
                 icon: const Icon(Icons.work_outline),
                 selectedIcon: const Icon(Icons.work),
-                label: Text('Attendants'.hardcoded),
+                label: Text(
+                    AppLocalizations.of(context)!.attendanceNavigationTitle),
               ),
               NavigationRailDestination(
                 icon: const Icon(Icons.view_headline_outlined),
                 selectedIcon: const Icon(Icons.view_headline),
-                label: Text('Members'.hardcoded),
+                label:
+                    Text(AppLocalizations.of(context)!.memberNavigationTitle),
               ),
               NavigationRailDestination(
                 icon: const Icon(Icons.person_outline),
                 selectedIcon: const Icon(Icons.person),
-                label: Text('Account'.hardcoded),
+                label:
+                    Text(AppLocalizations.of(context)!.accountNavigationTitle),
               ),
             ],
           ),

@@ -30,6 +30,8 @@ enum AppRoute {
   addmember,
   editmember,
   profile,
+  signIn,
+  signOut
 }
 
 @riverpod
@@ -70,7 +72,7 @@ GoRouter goRouter(GoRouterRef ref) {
           },
           branches: [
             StatefulShellBranch(
-              navigatorKey: _membersNavigatorKey,
+              navigatorKey: _attendancesNavigatorKey,
               routes: [
                 GoRoute(
                   path: '/attendances',
@@ -82,7 +84,7 @@ GoRouter goRouter(GoRouterRef ref) {
               ],
             ),
             StatefulShellBranch(
-              navigatorKey: _attendancesNavigatorKey,
+              navigatorKey: _membersNavigatorKey,
               routes: [
                 GoRoute(
                     path: '/members',
@@ -110,13 +112,12 @@ GoRouter goRouter(GoRouterRef ref) {
                         },
                       ),
                       GoRoute(
-                        path: 'detail',
-                        name: AppRoute.memberdetail.name,
-                        pageBuilder: (context, state) => NoTransitionPage(
-                          child: MemberDetailScreen(
-                              member: state.extra! as Member),
-                        ),
-                      )
+                          path: 'detail',
+                          name: AppRoute.memberdetail.name,
+                          pageBuilder: (context, state) => NoTransitionPage(
+                                child: MemberDetailScreen(
+                                    member: state.extra! as Member),
+                              ))
                     ]),
               ],
             ),
