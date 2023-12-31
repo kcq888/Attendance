@@ -4,6 +4,7 @@ import 'package:attendance/src/models/member.dart';
 import 'package:attendance/src/routes/app_route.dart';
 import 'package:attendance/src/screens/member_screen_controller.dart';
 import 'package:attendance/src/services/member_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -15,7 +16,7 @@ class MemberScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Members'),
+        title: Text(AppLocalizations.of(context)!.members),
         actions: [
           IconButton(
             onPressed: () => context.goNamed(AppRoute.addmember.name),
@@ -38,9 +39,11 @@ class MemberScreen extends ConsumerWidget {
                     }
                     return MemberListTile(member: items[index - 1]);
                   }),
-              error: (_, __) => const EmptyContent(
-                    title: 'Something went wrong',
-                    message: 'Can\'t load items right now',
+              error: (_, __) => EmptyContent(
+                    title:
+                        AppLocalizations.of(context)!.somethingWentWrongTitle,
+                    message:
+                        AppLocalizations.of(context)!.somethingWentWrongMsg,
                   ),
               loading: () => const Center(child: CircularProgressIndicator()));
         },
@@ -88,7 +91,7 @@ class MemberListTile extends ConsumerWidget {
             style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           subtitle: Row(children: [
-            const Text('RFID:'),
+            Text(AppLocalizations.of(context)!.rfidSubtitle),
             const Spacer(),
             Text(member.rfid)
           ]),
@@ -101,15 +104,15 @@ class MemberListTile extends ConsumerWidget {
 Widget buildAlertDialog(BuildContext context) {
   // set up the buttons
   Widget cancelButton = TextButton(
-      child: const Text("Cancel"),
+      child: Text(AppLocalizations.of(context)!.cancelbtn),
       onPressed: () => Navigator.of(context, rootNavigator: true).pop(false));
   Widget continueButton = TextButton(
-      child: const Text("OK"),
+      child: Text(AppLocalizations.of(context)!.okbtn),
       onPressed: () => Navigator.of(context, rootNavigator: true).pop(true));
   // set up the AlertDialog
   return AlertDialog(
-    title: const Text("Delete Member"),
-    content: const Text("Are you sure that you want to delete?"),
+    title: Text(AppLocalizations.of(context)!.deleteMemberTitle),
+    content: Text(AppLocalizations.of(context)!.deleteOK),
     actions: [
       cancelButton,
       continueButton,

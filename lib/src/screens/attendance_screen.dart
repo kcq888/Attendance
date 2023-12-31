@@ -2,6 +2,7 @@ import 'package:attendance/src/common_widgets/list_items_builder.dart';
 import 'package:attendance/src/models/attendance.dart';
 import 'package:attendance/src/repositories/attendance_datepicker.dart';
 import 'package:attendance/src/services/attendance_service.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -24,7 +25,7 @@ class AttendanceScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Attendance of the Day'),
+        title: Text(AppLocalizations.of(context)!.attendanceOfTheDay),
         actions: [
           IconButton(
               icon: const Icon(Icons.calendar_month),
@@ -65,15 +66,19 @@ class AttendanceListTile extends StatelessWidget {
         subtitle: Container(
           alignment: Alignment.centerLeft,
           child: Column(children: [
-            Row(children: buildTileRowWidgets(attendance, _signIn)),
             Row(
-              children: buildTileRowWidgets(attendance, _signOut),
+                children: buildTileRowWidgets(
+                    context, attendance, AppLocalizations.of(context)!.signin)),
+            Row(
+              children: buildTileRowWidgets(
+                  context, attendance, AppLocalizations.of(context)!.signout),
             )
           ]),
         ));
   }
 
-  List<Widget> buildTileRowWidgets(Attendance attendance, String type) {
+  List<Widget> buildTileRowWidgets(
+      BuildContext context, Attendance attendance, String type) {
     var tileRowWidgets = [Text(type), const Spacer()];
 
     if (type == _signIn) {
@@ -84,7 +89,7 @@ class AttendanceListTile extends StatelessWidget {
         tileRowWidgets.add(
             Text(DateFormat(_dateFormat).format(attendance.signOut.toDate())));
       } else {
-        tileRowWidgets.add(const Text('Has not been signout'));
+        tileRowWidgets.add(Text(AppLocalizations.of(context)!.hasnotsignout));
       }
     }
 

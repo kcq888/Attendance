@@ -1,6 +1,8 @@
 import 'package:attendance/src/routes/app_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AttendanceApp extends ConsumerWidget {
   const AttendanceApp({super.key});
@@ -10,6 +12,16 @@ class AttendanceApp extends ConsumerWidget {
     final goRouter = ref.watch(goRouterProvider);
     return MaterialApp.router(
       routerConfig: goRouter,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate
+      ],
+      supportedLocales: const [
+        Locale('es'), // Spanish
+        Locale('en') // English
+      ],
       theme: ThemeData(
         primarySwatch: Colors.indigo,
         unselectedWidgetColor: Colors.grey,

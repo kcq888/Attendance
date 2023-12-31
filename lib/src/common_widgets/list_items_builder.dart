@@ -1,4 +1,5 @@
 import 'package:attendance/src/common_widgets/empty_content.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -29,9 +30,9 @@ class ListItemsBuilder<T> extends StatelessWidget {
             )
           : const EmptyContent(),
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (_, __) => const EmptyContent(
-        title: 'Something went wrong',
-        message: 'Can\'t load items right now',
+      error: (_, __) => EmptyContent(
+        title: AppLocalizations.of(context)!.somethingWentWrongTitle,
+        message: AppLocalizations.of(context)!.somethingWentWrongMsg,
       ),
     );
   }

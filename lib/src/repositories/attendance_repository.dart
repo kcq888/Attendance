@@ -1,5 +1,8 @@
 import 'package:attendance/src/authentication/firebase_auth_repository.dart';
+import 'package:attendance/src/models/member.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../models/attendance.dart';
 
@@ -46,6 +49,83 @@ class AttendanceRepository {
             toFirestore: (attendance, _) => attendance.toMap());
 
     return query;
+  }
+
+  Future<bool> signIn(Member member) async {
+    String date = DateFormat('MMddyyyy').format(DateTime.now());
+    String docId = '${member.rfid}_$date';
+    Map<String, dynamic> sigInData = {
+      'Date': date,
+      'HasSignOut': false,
+      'Name': '${member.firstname} ${member.lastname}',
+      'RFIDTag': member.rfid,
+      'SignIn': DateTime.now().toUtc()
+    };
+    try {
+      // check if the docs already exist, if it does, return false
+      bool docExist = await doesDocExist(docId);
+      if (!docExist) {
+        _firestore.collection(_season).doc(docId).set(sigInData).onError(
+            (error, stackTrace) => throw FirebaseException(
+                plugin: docId,
+                message:
+                    'Error member sign in for ${member.firstname} ${member.lastname}'));
+      } else {
+        return false;
+      }
+    } on FirebaseException catch (e) {
+      debugPrint(e.message);
+      return false;
+    }
+    return true;
+  }
+
+  Future<bool> signOut(Member member) async {
+    String date = DateFormat('MMddyyyy').format(DateTime.now());
+    String docId = '${member.rfid}_$date';
+    Map<String, dynamic> sigInData = {
+      'HasSignOut': true,
+      'SignOut': DateTime.now().toUtc()
+    };
+    try {
+      bool hasSignout = await alreadySignOut(docId);
+      if (!hasSignout) {
+        _firestore.collection(_season).doc(docId).update(sigInData).onError(
+            (error, stackTrace) => throw FirebaseException(
+                plugin: docId,
+                message:
+                    'Error member sign out for ${member.firstname} ${member.lastname}'));
+      } else {
+        return false;
+      }
+    } on FirebaseException catch (e) {
+      debugPrint(e.message);
+      return false;
+    }
+    return true;
+  }
+
+  Future<bool> doesDocExist(String docId) async {
+    try {
+      var doc = await _firestore.collection(_season).doc(docId).get();
+      return doc.exists;
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<bool> alreadySignOut(String docId) async {
+    try {
+      var doc = await _firestore.collection(_season).doc(docId).get();
+      Map<String, dynamic> data = doc.data()!;
+      if (data['HasSignOut']) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      rethrow;
+    }
   }
 }
 

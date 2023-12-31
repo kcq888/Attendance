@@ -2,6 +2,7 @@ import 'package:attendance/src/authentication/auth_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
@@ -11,7 +12,7 @@ class LoginScreen extends ConsumerWidget {
     final authProviders = ref.watch(authProvidersProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tough Techs 151 Attendance"),
+        title: Text(AppLocalizations.of(context)!.attendanceTitle),
       ),
       body: SignInScreen(
         providers: authProviders,
@@ -28,18 +29,16 @@ class LoginScreen extends ConsumerWidget {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: action == AuthAction.signIn
-                ? const Text(
-                    'Welcome to Tough Techs Attendance, please sign in!')
-                : const Text(
-                    'Welcome to Tough Techs Attendance, please sign up!'),
+                ? Text(AppLocalizations.of(context)!.pleaseSignin)
+                : Text(AppLocalizations.of(context)!.pleaseSignup),
           );
         },
         footerBuilder: (context, action) {
-          return const Padding(
-            padding: EdgeInsets.only(top: 16),
+          return Padding(
+            padding: const EdgeInsets.only(top: 16),
             child: Text(
-              'By signing in, you agree to our terms and conditions.',
-              style: TextStyle(color: Colors.grey),
+              AppLocalizations.of(context)!.terms,
+              style: const TextStyle(color: Colors.grey),
             ),
           );
         },
