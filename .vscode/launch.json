@@ -7,7 +7,11 @@
         {
             "name": "attendance",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": [
+                "-d",
+                "Chome"
+            ]
         },
         {
             "name": "attendance (profile mode)",
