@@ -7,7 +7,11 @@
         {
             "name": "attendance",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": [
+                "-d",
+                "Chrome"
+            ]
         },
         {
             "name": "attendance (profile mode)",
