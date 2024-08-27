@@ -19,28 +19,28 @@ class AttendanceService {
 }
 
 @riverpod
-AttendanceService attendanceService(AttendanceServiceRef ref) {
-  return AttendanceService(ref.watch(attendanceRepositoryProvider));
+AttendanceService attendanceService(AttendanceServiceRef ref, String season) {
+  return AttendanceService(ref.watch(attendanceRepositoryProvider(season)));
 }
 
 @riverpod
 Stream<List<Attendance>> attendanceByDateStream(
-    AttendanceByDateStreamRef ref, String type) {
+    AttendanceByDateStreamRef ref, String season, String type) {
   final user = ref.watch(authRepositoryProvider).currentUser;
   if (user == null) {
     throw AssertionError('User can\'t be null when fetching entries');
   }
-  final attendanceService = ref.watch(attendanceServiceProvider);
+  final attendanceService = ref.watch(attendanceServiceProvider(season));
   return attendanceService.allAttendanceByDateStream(type);
 }
 
 @riverpod
 Stream<List<Attendance>> attendanceByRfidStream(
-    AttendanceByRfidStreamRef ref, String type) {
+    AttendanceByRfidStreamRef ref, String season, String type) {
   final user = ref.watch(authRepositoryProvider).currentUser;
   if (user == null) {
     throw AssertionError('User can\'t be null when fetching entries');
   }
-  final attendanceService = ref.watch(attendanceServiceProvider);
+  final attendanceService = ref.watch(attendanceServiceProvider(season));
   return attendanceService.allAttendanceByRfidStream(type);
 }

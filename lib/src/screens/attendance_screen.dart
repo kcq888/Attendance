@@ -1,10 +1,14 @@
 import 'package:attendance/src/common_widgets/list_items_builder.dart';
+import 'package:attendance/src/constants/constants.dart';
 import 'package:attendance/src/models/attendance.dart';
 import 'package:attendance/src/repositories/attendance_datepicker.dart';
+import 'package:attendance/src/repositories/attendance_settings.dart';
+import 'package:attendance/src/routes/app_route.dart';
 import 'package:attendance/src/services/attendance_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 class AttendanceScreen extends ConsumerWidget {
@@ -29,15 +33,23 @@ class AttendanceScreen extends ConsumerWidget {
         actions: [
           IconButton(
               icon: const Icon(Icons.calendar_month),
-              onPressed: () => _selectDate(context, ref))
+              onPressed: () => _selectDate(context, ref)),
+          IconButton(
+              icon: const Icon(Icons.settings),
+              onPressed: () => context.goNamed(AppRoute.setting.name)),
         ],
         automaticallyImplyLeading: false,
       ),
       body: Consumer(
         builder: (context, ref, child) {
+          final String? season =
+              ref.read(SharedPrefStringNotifier.provider(SEASON_KEY));
+
           final attendantByDateQueryStream = ref.watch(
-              attendanceByDateStreamProvider(DateFormat('MMddyyyy')
-                  .format(ref.watch(selectedDateProvider))));
+              attendanceByDateStreamProvider(
+                  season ?? '',
+                  DateFormat('MMddyyyy')
+                      .format(ref.watch(selectedDateProvider))));
           return ListItemsBuilder<Attendance>(
               data: attendantByDateQueryStream,
               itemBuilder: (context, attendance) =>

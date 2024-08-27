@@ -25,7 +25,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -55,7 +58,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDgXbwcqbFx4-WQR0uRJf-2Crl2doPG_ek',
-    appId: '1:997114318074:android:27935e8d222cb2a4dacd43',
+    appId: '1:997114318074:android:e62bcd3ba0343f0fdacd43',
     messagingSenderId: '997114318074',
     projectId: 'attendant-851c0',
     storageBucket: 'attendant-851c0.appspot.com',
@@ -69,15 +72,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'attendant-851c0.appspot.com',
     iosClientId: '997114318074-edmvbepcfhku0of214mpqp01s7rn0pjl.apps.googleusercontent.com',
     iosBundleId: 'com.trekware.attendance',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBxUpFxVfebmyHcLE6l_LpOcwEjGz-JNLM',
-    appId: '1:997114318074:ios:473220c2f0179e90dacd43',
-    messagingSenderId: '997114318074',
-    projectId: 'attendant-851c0',
-    storageBucket: 'attendant-851c0.appspot.com',
-    iosClientId: '997114318074-0c324vs4brgbc9sdv0to85n4k8atubs7.apps.googleusercontent.com',
-    iosBundleId: 'com.example.attendance.RunnerTests',
   );
 }

@@ -11,17 +11,19 @@ part 'attendance_repository.g.dart';
 enum QueryType { queryDate, queryRfid }
 
 class AttendanceRepository {
-  const AttendanceRepository(this._firestore);
+  const AttendanceRepository(this._firestore, this._season);
   final FirebaseFirestore _firestore;
+  final String _season;
 
-  static const String _season = 'Season2023-2024/meetings/dates';
+  static const String _datesCol = '/meetings/dates';
 
   // a stream that is continuously listening for changes happening in the database
-  Stream get attendances => _firestore.collection(_season).snapshots();
+  Stream get attendances =>
+      _firestore.collection(_season + _datesCol).snapshots();
 
   // Read query repository
   Stream<Attendance> watchAttandance({required doc}) => _firestore
-      .collection(_season)
+      .collection(_season + _datesCol)
       .doc(doc)
       .withConverter<Attendance>(
           fromFirestore: (snapshot, _) =>
@@ -40,7 +42,7 @@ class AttendanceRepository {
     String queryFilter =
         (queryType == QueryType.queryDate) ? 'Date' : 'RFIDTag';
     Query<Attendance> query = _firestore
-        .collection(_season)
+        .collection(_season + _datesCol)
         .orderBy("Name")
         .where(queryFilter, isEqualTo: type)
         .withConverter<Attendance>(
@@ -65,8 +67,11 @@ class AttendanceRepository {
       // check if the docs already exist, if it does, return false
       bool docExist = await doesDocExist(docId);
       if (!docExist) {
-        _firestore.collection(_season).doc(docId).set(sigInData).onError(
-            (error, stackTrace) => throw FirebaseException(
+        _firestore
+            .collection(_season + _datesCol)
+            .doc(docId)
+            .set(sigInData)
+            .onError((error, stackTrace) => throw FirebaseException(
                 plugin: docId,
                 message:
                     'Error member sign in for ${member.firstname} ${member.lastname}'));
@@ -90,8 +95,11 @@ class AttendanceRepository {
     try {
       bool hasSignout = await alreadySignOut(docId);
       if (!hasSignout) {
-        _firestore.collection(_season).doc(docId).update(sigInData).onError(
-            (error, stackTrace) => throw FirebaseException(
+        _firestore
+            .collection(_season + _datesCol)
+            .doc(docId)
+            .update(sigInData)
+            .onError((error, stackTrace) => throw FirebaseException(
                 plugin: docId,
                 message:
                     'Error member sign out for ${member.firstname} ${member.lastname}'));
@@ -107,7 +115,8 @@ class AttendanceRepository {
 
   Future<bool> doesDocExist(String docId) async {
     try {
-      var doc = await _firestore.collection(_season).doc(docId).get();
+      var doc =
+          await _firestore.collection(_season + _datesCol).doc(docId).get();
       return doc.exists;
     } catch (error) {
       rethrow;
@@ -116,7 +125,8 @@ class AttendanceRepository {
 
   Future<bool> alreadySignOut(String docId) async {
     try {
-      var doc = await _firestore.collection(_season).doc(docId).get();
+      var doc =
+          await _firestore.collection(_season + _datesCol).doc(docId).get();
       Map<String, dynamic> data = doc.data()!;
       if (data['HasSignOut']) {
         return true;
@@ -130,28 +140,29 @@ class AttendanceRepository {
 }
 
 @Riverpod(keepAlive: true)
-AttendanceRepository attendanceRepository(AttendanceRepositoryRef ref) {
-  return AttendanceRepository(FirebaseFirestore.instance);
+AttendanceRepository attendanceRepository(
+    AttendanceRepositoryRef ref, String season) {
+  return AttendanceRepository(FirebaseFirestore.instance, season);
 }
 
-@riverpod
-Query<Attendance> attendanceDateQuery(AttendanceDateQueryRef ref, String date) {
-  final user = ref.watch(authRepositoryProvider).currentUser;
-  if (user == null) {
-    throw AssertionError('User can\'t be null');
-  }
-  final repository = ref.watch(attendanceRepositoryProvider);
-  return repository.queryAttendances(
-      type: date, queryType: QueryType.queryDate);
-}
+// @riverpod
+// Query<Attendance> attendanceDateQuery(AttendanceDateQueryRef ref, String date) {
+//   final user = ref.watch(authRepositoryProvider).currentUser;
+//   if (user == null) {
+//     throw AssertionError('User can\'t be null');
+//   }
+//   final repository = ref.watch(attendanceRepositoryProvider('Season2023-2024'));
+//   return repository.queryAttendances(
+//       type: date, queryType: QueryType.queryDate);
+// }
 
-@riverpod
-Query<Attendance> attendanceRfidQuery(AttendanceRfidQueryRef ref, String rfid) {
-  final user = ref.watch(authRepositoryProvider).currentUser;
-  if (user == null) {
-    throw AssertionError('User can\'t be null');
-  }
-  final repository = ref.watch(attendanceRepositoryProvider);
-  return repository.queryAttendances(
-      type: rfid, queryType: QueryType.queryRfid);
-}
+// @riverpod
+// Query<Attendance> attendanceRfidQuery(AttendanceRfidQueryRef ref, String rfid) {
+//   final user = ref.watch(authRepositoryProvider).currentUser;
+//   if (user == null) {
+//     throw AssertionError('User can\'t be null');
+//   }
+//   final repository = ref.watch(attendanceRepositoryProvider('Season2023-2024'));
+//   return repository.queryAttendances(
+//       type: rfid, queryType: QueryType.queryRfid);
+// }

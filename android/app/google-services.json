@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:997114318074:android:27935e8d222cb2a4dacd43",
         "android_client_info": {
-          "package_name": "com.example.attendance"
+          "package_name": "com.toughtechs.attendance"
         }
       },
       "oauth_client": [
@@ -31,10 +31,10 @@
               "client_type": 3
             },
             {
-              "client_id": "997114318074-9lbg93m8qsuba2lo9k7cqjgkkdjij27t.apps.googleusercontent.com",
+              "client_id": "997114318074-0c324vs4brgbc9sdv0to85n4k8atubs7.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.attendant151.RunnerTests"
+                "bundle_id": "com.toughtechs.attendance.RunnerTests"
               }
             }
           ]
@@ -45,7 +45,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:997114318074:android:33756468c1c9a603dacd43",
         "android_client_info": {
-          "package_name": "com.example.attendant151"
+          "package_name": "com.toughtechs.attendant151"
         }
       },
       "oauth_client": [
@@ -67,10 +67,46 @@
               "client_type": 3
             },
             {
-              "client_id": "997114318074-9lbg93m8qsuba2lo9k7cqjgkkdjij27t.apps.googleusercontent.com",
+              "client_id": "997114318074-0c324vs4brgbc9sdv0to85n4k8atubs7.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.attendant151.RunnerTests"
+                "bundle_id": "com.toughtechs.attendance.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997114318074:android:e62bcd3ba0343f0fdacd43",
+        "android_client_info": {
+          "package_name": "com.toughtechs.attendance"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "997114318074-j2j1f3ul47sbprnca2ce60d171mci463.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgXbwcqbFx4-WQR0uRJf-2Crl2doPG_ek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "997114318074-iq9rr7rsgl1f4d59bvbm9dljm8gioqpv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "997114318074-0c324vs4brgbc9sdv0to85n4k8atubs7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.toughtechs.attendance.RunnerTests"
               }
             }
           ]

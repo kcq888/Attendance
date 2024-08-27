@@ -98,5 +98,13 @@
   "accountNavigationTitle": "Account",
   "@accountNavigationTitle": {
     "description": "Account navigation title"
+  },
+  "settingsTitle": "Settings",
+  "@settingsTitle": {
+    "description": "Setting Appbar title"
+  },
+  "saveSetting": "Save",
+  "@saveSetting": {
+    "description": "Save setting button title"
   }
 }

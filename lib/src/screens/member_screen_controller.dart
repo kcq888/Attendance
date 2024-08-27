@@ -1,5 +1,7 @@
 import 'package:attendance/src/authentication/firebase_auth_repository.dart';
+import 'package:attendance/src/constants/constants.dart';
 import 'package:attendance/src/models/member.dart';
+import 'package:attendance/src/repositories/attendance_settings.dart';
 import 'package:attendance/src/repositories/member_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -21,7 +23,10 @@ class MemberScreenController extends _$MemberScreenController {
 
   Future<void> deleteMember(Member member) async {
     checkLogin();
-    final repository = ref.read(memberRepositoryProvider);
+    final String? season =
+        ref.read(SharedPrefStringNotifier.provider(SEASON_KEY));
+
+    final repository = ref.read(memberRepositoryProvider(season!));
     state = const AsyncLoading();
     state = await AsyncValue.guard(
         () => repository.deleteMember(rfid: member.rfid));
@@ -29,7 +34,10 @@ class MemberScreenController extends _$MemberScreenController {
 
   Future<void> updateMember(Member member) async {
     checkLogin();
-    final repository = ref.read(memberRepositoryProvider);
+    final String? season =
+        ref.read(SharedPrefStringNotifier.provider(SEASON_KEY));
+
+    final repository = ref.read(memberRepositoryProvider(season!));
     state = const AsyncLoading();
     state = await AsyncValue.guard(() => repository.updateMember(
         firstname: member.firstname,
@@ -39,7 +47,10 @@ class MemberScreenController extends _$MemberScreenController {
 
   Future<void> addMember(Member member) async {
     checkLogin();
-    final repository = ref.read(memberRepositoryProvider);
+    final String? season =
+        ref.read(SharedPrefStringNotifier.provider(SEASON_KEY));
+
+    final repository = ref.read(memberRepositoryProvider(season!));
     state = const AsyncLoading();
     state = await AsyncValue.guard(() => repository.addMember(
         firstname: member.firstname,

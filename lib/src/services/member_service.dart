@@ -12,12 +12,12 @@ class MemberService {
 }
 
 @riverpod
-MemberService memberService(MemberServiceRef ref) {
-  return MemberService(ref.watch(memberRepositoryProvider));
+MemberService memberService(MemberServiceRef ref, String season) {
+  return MemberService(ref.watch(memberRepositoryProvider(season)));
 }
 
 @riverpod
-Stream<List<Member>> memberStream(MemberStreamRef ref) {
-  final memberService = ref.watch(memberServiceProvider);
+Stream<List<Member>> memberStream(MemberStreamRef ref, String season) {
+  final memberService = ref.watch(memberServiceProvider(season));
   return memberService.allMemberStream();
 }

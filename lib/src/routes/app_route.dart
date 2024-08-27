@@ -8,6 +8,7 @@ import 'package:attendance/src/screens/edit_member.dart';
 import 'package:attendance/src/screens/login_screen.dart';
 import 'package:attendance/src/screens/member_screen.dart';
 import 'package:attendance/src/screens/memberdetails.dart';
+import 'package:attendance/src/screens/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -31,7 +32,8 @@ enum AppRoute {
   editmember,
   profile,
   signIn,
-  signOut
+  signOut,
+  setting
 }
 
 @riverpod
@@ -75,12 +77,21 @@ GoRouter goRouter(GoRouterRef ref) {
               navigatorKey: _attendancesNavigatorKey,
               routes: [
                 GoRoute(
-                  path: '/attendances',
-                  name: AppRoute.attendances.name,
-                  pageBuilder: (context, state) => const NoTransitionPage(
-                    child: AttendanceScreen(),
-                  ),
-                )
+                    path: '/attendances',
+                    name: AppRoute.attendances.name,
+                    pageBuilder: (context, state) => const NoTransitionPage(
+                          child: AttendanceScreen(),
+                        ),
+                    routes: [
+                      GoRoute(
+                          path: 'settings',
+                          name: AppRoute.setting.name,
+                          parentNavigatorKey: _rootNavigatorKey,
+                          pageBuilder: (context, state) {
+                            return const MaterialPage(
+                                fullscreenDialog: true, child: SettingScreen());
+                          })
+                    ])
               ],
             ),
             StatefulShellBranch(

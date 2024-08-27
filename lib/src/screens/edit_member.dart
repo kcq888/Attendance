@@ -66,7 +66,7 @@ class _EditMemberScreenState extends ConsumerState<EditMemberScreen> {
           TextButton(
               onPressed: () => _submit(),
               child: Text(AppLocalizations.of(context)!.saveMember,
-                  style: const TextStyle(fontSize: 18, color: Colors.white)))
+                  style: const TextStyle(fontSize: 18, color: Colors.blue)))
         ],
       ),
       body: _buildMemberEditContent(),

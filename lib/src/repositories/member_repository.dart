@@ -5,16 +5,17 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'member_repository.g.dart';
 
 class MemberRepository {
-  const MemberRepository(this._firestore);
+  const MemberRepository(this._firestore, this._season);
   final FirebaseFirestore _firestore;
+  final String _season;
 
-  static const String _members = 'Season2023-2024/members/rfids';
+  static const String _members = '/members/rfids';
 
   // Add member
   Future<void> addMember(
       {required firstname, required lastname, required rfid}) async {
     _firestore
-        .collection(_members)
+        .collection(_season + _members)
         .doc(rfid)
         .set({'First': firstname, 'Last': lastname, 'RFIDTag': rfid}).onError(
             (error, stackTrace) => null);
@@ -23,7 +24,7 @@ class MemberRepository {
   // Update member
   Future<void> updateMember(
       {required firstname, required lastname, required rfid}) async {
-    _firestore.collection(_members).doc(rfid).update({
+    _firestore.collection(_season + _members).doc(rfid).update({
       'First': firstname,
       'Last': lastname,
       'RFIDTag': rfid
@@ -33,7 +34,7 @@ class MemberRepository {
   // Delete member
   Future<void> deleteMember({required rfid}) async {
     _firestore
-        .collection(_members)
+        .collection(_season + _members)
         .doc(rfid)
         .delete()
         .onError((error, stackTrace) => null);
@@ -42,7 +43,7 @@ class MemberRepository {
   Stream get members => _firestore.collection(_members).snapshots();
 
   Stream<Member> watchMember({required doc}) => _firestore
-      .collection(_members)
+      .collection(_season + _members)
       .doc(doc)
       .withConverter<Member>(
           fromFirestore: (snapshot, _) => Member.fromMap(snapshot, snapshot.id),
@@ -56,7 +57,7 @@ class MemberRepository {
 
   Query<Member> queryMembers() {
     Query<Member> query = _firestore
-        .collection(_members)
+        .collection(_season + _members)
         .orderBy("First")
         .withConverter<Member>(
             fromFirestore: (snapshot, _) =>
@@ -68,6 +69,6 @@ class MemberRepository {
 }
 
 @Riverpod(keepAlive: true)
-MemberRepository memberRepository(MemberRepositoryRef ref) {
-  return MemberRepository(FirebaseFirestore.instance);
+MemberRepository memberRepository(MemberRepositoryRef ref, String season) {
+  return MemberRepository(FirebaseFirestore.instance, season);
 }

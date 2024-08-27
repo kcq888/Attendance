@@ -33,8 +33,8 @@ class AttendanceApp extends ConsumerWidget {
         dividerColor: Colors.grey[400],
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.indigo),
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+            backgroundColor: WidgetStateProperty.all<Color>(Colors.indigo),
+            foregroundColor: WidgetStateProperty.all<Color>(Colors.white),
           ),
         ),
       ),

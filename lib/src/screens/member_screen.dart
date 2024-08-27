@@ -1,6 +1,8 @@
 import 'package:attendance/src/common_widgets/empty_content.dart';
 import 'package:attendance/src/common_widgets/slide_memu.dart';
+import 'package:attendance/src/constants/constants.dart';
 import 'package:attendance/src/models/member.dart';
+import 'package:attendance/src/repositories/attendance_settings.dart';
 import 'package:attendance/src/routes/app_route.dart';
 import 'package:attendance/src/screens/member_screen_controller.dart';
 import 'package:attendance/src/services/member_service.dart';
@@ -27,7 +29,9 @@ class MemberScreen extends ConsumerWidget {
       ),
       body: Consumer(
         builder: (BuildContext context, WidgetRef ref, Widget? child) {
-          final memberQueryStream = ref.watch(memberStreamProvider);
+          final String? season =
+              ref.read(SharedPrefStringNotifier.provider(SEASON_KEY));
+          final memberQueryStream = ref.watch(memberStreamProvider(season!));
           return memberQueryStream.when(
               data: (items) => ListView.separated(
                   itemCount: items.length + 2,

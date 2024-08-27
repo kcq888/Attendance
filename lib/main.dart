@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:attendance/src/attendance_app.dart';
 import 'package:attendance/src/localization/string_hardcoded.dart';
+import 'package:attendance/src/repositories/attendance_settings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,7 +24,7 @@ Future<void> main() async {
   // * https://docs.flutter.dev/testing/errors
   registerErrorHandlers();
   final container = ProviderContainer(
-    overrides: [],
+    overrides: [sharedPreferencesProvider.overrideWithValue(sharedPreferences)],
   );
   runApp(UncontrolledProviderScope(
       container: container, child: const AttendanceApp()));

@@ -1,5 +1,7 @@
 import 'package:attendance/src/authentication/firebase_auth_repository.dart';
+import 'package:attendance/src/constants/constants.dart';
 import 'package:attendance/src/models/member.dart';
+import 'package:attendance/src/repositories/attendance_settings.dart';
 import 'package:attendance/src/repositories/member_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -23,9 +25,12 @@ class EditMemberScreenController extends _$EditMemberScreenController {
       {required firstname, required lastname, required rfid}) async {
     checkLogin();
 
+    final String? season =
+        ref.read(SharedPrefStringNotifier.provider(SEASON_KEY));
+
     // set loading state
     state = const AsyncLoading().copyWithPrevious(state);
-    final repository = ref.read(memberRepositoryProvider);
+    final repository = ref.read(memberRepositoryProvider(season!));
     if (member != null) {
       state = await AsyncValue.guard(() => repository.updateMember(
           firstname: member.firstname,

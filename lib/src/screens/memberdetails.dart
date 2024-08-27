@@ -1,6 +1,8 @@
 import 'package:attendance/src/common_widgets/list_items_builder.dart';
+import 'package:attendance/src/constants/constants.dart';
 import 'package:attendance/src/models/member.dart';
 import 'package:attendance/src/repositories/attendance_repository.dart';
+import 'package:attendance/src/repositories/attendance_settings.dart';
 import 'package:attendance/src/screens/attendance_screen.dart';
 import 'package:attendance/src/services/attendance_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -28,8 +30,11 @@ class MemberDetailScreen extends ConsumerWidget {
       ),
       body: Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? child) {
+        final String? season =
+            ref.read(SharedPrefStringNotifier.provider(SEASON_KEY));
+
         final attendanceByRfidStream =
-            ref.watch(attendanceByRfidStreamProvider(member.rfid));
+            ref.watch(attendanceByRfidStreamProvider(season!, member.rfid));
         return ListItemsBuilder(
             data: attendanceByRfidStream,
             itemBuilder: (context, attendance) =>
@@ -40,7 +45,11 @@ class MemberDetailScreen extends ConsumerWidget {
 
   // sign-in the member
   void signIn(BuildContext context, WidgetRef ref) async {
-    final attendanceRepository = ref.watch(attendanceRepositoryProvider);
+    final String? season =
+        ref.read(SharedPrefStringNotifier.provider(SEASON_KEY));
+
+    final attendanceRepository =
+        ref.watch(attendanceRepositoryProvider(season!));
     final bool success = await attendanceRepository.signIn(member);
     String name = '${member.firstname} ${member.lastname}';
     if (success) {
@@ -56,7 +65,11 @@ class MemberDetailScreen extends ConsumerWidget {
 
   // sign-out the member
   void signOut(BuildContext context, WidgetRef ref) async {
-    final attendanceRepository = ref.watch(attendanceRepositoryProvider);
+    final String? season =
+        ref.read(SharedPrefStringNotifier.provider(SEASON_KEY));
+
+    final attendanceRepository =
+        ref.watch(attendanceRepositoryProvider(season!));
     bool success = await attendanceRepository.signOut(member);
     String name = '${member.firstname} ${member.lastname}';
     if (success) {
