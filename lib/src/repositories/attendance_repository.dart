@@ -1,4 +1,3 @@
-import 'package:attendance/src/authentication/firebase_auth_repository.dart';
 import 'package:attendance/src/models/member.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';

@@ -60,10 +60,12 @@ class MemberListTile extends ConsumerWidget {
   const MemberListTile({Key? key, required this.member}) : super(key: key);
   final Member member;
 
-  Future<void> _deleteMember(WidgetRef ref) async {
-    await ref
-        .read(memberScreenControllerProvider.notifier)
-        .deleteMember(member);
+  Future<void> _deleteMember(WidgetRef ref, bool okToDelete) async {
+    if (okToDelete) {
+      await ref
+          .read(memberScreenControllerProvider.notifier)
+          .deleteMember(member);
+    }
   }
 
   @override
@@ -82,11 +84,11 @@ class MemberListTile extends ConsumerWidget {
             child: IconButton(
                 color: Colors.white,
                 icon: const Icon(Icons.delete),
-                onPressed: () => showDialog(
+                onPressed: () => showDialog<bool>(
                     context: context,
                     builder: (BuildContext context) {
                       return buildAlertDialog(context);
-                    }).then((value) => _deleteMember(ref))),
+                    }).then((value) => _deleteMember(ref, value!))),
           )
         ],
         child: ListTile(
