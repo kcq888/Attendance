@@ -1,5 +1,6 @@
 import 'package:attendance/src/models/member.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'member_repository.g.dart';
@@ -18,7 +19,7 @@ class MemberRepository {
         .collection(_season + _members)
         .doc(rfid)
         .set({'First': firstname, 'Last': lastname, 'RFIDTag': rfid}).onError(
-            (error, stackTrace) => null);
+            (error, stackTrace) => debugPrint('Add Member: $error'));
   }
 
   // Update member
@@ -28,7 +29,7 @@ class MemberRepository {
       'First': firstname,
       'Last': lastname,
       'RFIDTag': rfid
-    }).onError((error, stackTrace) => null);
+    }).onError((error, stackTrace) => debugPrint('Update Member: $error'));
   }
 
   // Delete member
@@ -37,7 +38,7 @@ class MemberRepository {
         .collection(_season + _members)
         .doc(rfid)
         .delete()
-        .onError((error, stackTrace) => null);
+        .onError((error, stackTrace) => debugPrint('Delete Member: $error'));
   }
 
   Stream get members => _firestore.collection(_members).snapshots();

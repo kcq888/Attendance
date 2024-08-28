@@ -119,11 +119,12 @@ class _EditMemberScreenState extends ConsumerState<EditMemberScreen> {
                   labelText: AppLocalizations.of(context)!.rfid),
               keyboardAppearance: Brightness.light,
               initialValue: _rfid,
+              enabled: _rfid != null ? false : true,
               keyboardType: const TextInputType.numberWithOptions(
                 signed: false,
                 decimal: false,
               ),
-              onSaved: (value) => _rfid,
+              onSaved: (value) => _rfid = value,
             ),
           ],
         ));

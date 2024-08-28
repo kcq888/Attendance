@@ -33,9 +33,7 @@ class EditMemberScreenController extends _$EditMemberScreenController {
     final repository = ref.read(memberRepositoryProvider(season!));
     if (member != null) {
       state = await AsyncValue.guard(() => repository.updateMember(
-          firstname: member.firstname,
-          lastname: member.lastname,
-          rfid: member.rfid));
+          firstname: firstname, lastname: lastname, rfid: rfid));
     } else {
       state = await AsyncValue.guard(() => repository.addMember(
           firstname: firstname, lastname: lastname, rfid: rfid));
