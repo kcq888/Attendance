@@ -106,5 +106,33 @@
   "saveSetting": "Save",
   "@saveSetting": {
     "description": "Save setting button title"
+  },
+  "nothingHereTitle": "Nothing Here!",
+  "@nothingHereTitle": {
+    "description": "The title of the empty content widget"
+  },
+  "nothingHereMessage": "Add new items to get started",
+  "@nothingHereMessage": {
+    "description": "Items can be added to the content area."
+  },
+  "signInCount": "SignIn Count",
+  "@signInCount": {
+    "description": "Number of time a member who has signed in."
+  },
+  "firstname": "First Name",
+  "@firstname": {
+    "description": "Member's first name"
+  },
+  "lastname": "Last Name",
+  "@lastname": {
+    "description": "Member's last name"
+  },
+  "rfid": "RFID",
+  "@rfid": {
+    "description": "Member's RFID"
+  },
+  "nameCanntBeEmpty": "Name Can not be empty",
+  "@nameCanntBeEmpty": {
+    "description": "name can not be empty for the input field"
   }
 }

@@ -61,8 +61,7 @@ class AttendanceScreen extends ConsumerWidget {
 }
 
 class AttendanceListTile extends StatelessWidget {
-  const AttendanceListTile({Key? key, required this.attendance})
-      : super(key: key);
+  const AttendanceListTile({super.key, required this.attendance});
   final Attendance attendance;
   final String _signIn = 'SignIn';
   final String _signOut = 'SignOut';
@@ -72,7 +71,7 @@ class AttendanceListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
         title: Text(
-          attendance.name,
+          '${attendance.name}  (${AppLocalizations.of(context)!.signInCount}: ${attendance.signInCount})',
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         subtitle: Container(

@@ -4,8 +4,7 @@ class SlideMenu extends StatefulWidget {
   final Widget child;
   final List<Widget> menuItems;
 
-  const SlideMenu({Key? key, required this.child, required this.menuItems})
-      : super(key: key);
+  const SlideMenu({super.key, required this.child, required this.menuItems});
 
   @override
   State<SlideMenu> createState() => _SlideMenuState();

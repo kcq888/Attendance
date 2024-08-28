@@ -57,7 +57,7 @@ class MemberScreen extends ConsumerWidget {
 }
 
 class MemberListTile extends ConsumerWidget {
-  const MemberListTile({Key? key, required this.member}) : super(key: key);
+  const MemberListTile({super.key, required this.member});
   final Member member;
 
   Future<void> _deleteMember(WidgetRef ref, bool okToDelete) async {

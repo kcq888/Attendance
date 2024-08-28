@@ -95,23 +95,28 @@ class _EditMemberScreenState extends ConsumerState<EditMemberScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             TextFormField(
-              decoration: const InputDecoration(labelText: 'First Name'),
+              decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.firstname),
               keyboardAppearance: Brightness.light,
               initialValue: _firstname,
-              validator: (value) =>
-                  (value ?? '').isNotEmpty ? null : 'Name can\'t be empty',
+              validator: (value) => (value ?? '').isNotEmpty
+                  ? null
+                  : AppLocalizations.of(context)!.nameCanntBeEmpty,
               onSaved: (value) => _firstname = value,
             ),
             TextFormField(
-              decoration: const InputDecoration(labelText: 'Last Name'),
+              decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.lastname),
               keyboardAppearance: Brightness.light,
               initialValue: _lastname,
-              validator: (value) =>
-                  (value ?? '').isNotEmpty ? null : 'Name can\'t be empty',
+              validator: (value) => (value ?? '').isNotEmpty
+                  ? null
+                  : AppLocalizations.of(context)!.nameCanntBeEmpty,
               onSaved: (value) => _lastname = value,
             ),
             TextFormField(
-              decoration: const InputDecoration(labelText: 'RFID'),
+              decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.rfid),
               keyboardAppearance: Brightness.light,
               initialValue: _rfid,
               keyboardType: const TextInputType.numberWithOptions(

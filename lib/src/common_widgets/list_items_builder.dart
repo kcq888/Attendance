@@ -7,10 +7,10 @@ typedef ItemWidgetBuilder<T> = Widget Function(BuildContext context, T item);
 
 class ListItemsBuilder<T> extends StatelessWidget {
   const ListItemsBuilder({
-    Key? key,
+    super.key,
     required this.data,
     required this.itemBuilder,
-  }) : super(key: key);
+  });
   final AsyncValue<List<T>> data;
   final ItemWidgetBuilder<T> itemBuilder;
 
@@ -28,7 +28,9 @@ class ListItemsBuilder<T> extends StatelessWidget {
                 return itemBuilder(context, items[index - 1]);
               },
             )
-          : const EmptyContent(),
+          : EmptyContent(
+              title: AppLocalizations.of(context)!.nothingHereTitle,
+              message: AppLocalizations.of(context)!.nothingHereMessage),
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (_, __) => EmptyContent(
         title: AppLocalizations.of(context)!.somethingWentWrongTitle,
