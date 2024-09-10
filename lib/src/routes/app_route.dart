@@ -1,7 +1,9 @@
 import 'package:attendance/src/authentication/firebase_auth_repository.dart';
+import 'package:attendance/src/models/attendance.dart';
 import 'package:attendance/src/models/member.dart';
 import 'package:attendance/src/routes/go_router_refresh_stream.dart';
 import 'package:attendance/src/routes/scaffold_with_nested_navigation.dart';
+import 'package:attendance/src/screens/attendance_detail_screen.dart';
 import 'package:attendance/src/screens/attendance_screen.dart';
 import 'package:attendance/src/screens/custom_profile_screen.dart';
 import 'package:attendance/src/screens/edit_member.dart';
@@ -25,6 +27,7 @@ final _accountNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'account');
 enum AppRoute {
   signin,
   attendances,
+  attendanceDetail,
   newdate,
   members,
   memberdetail,
@@ -86,11 +89,17 @@ GoRouter goRouter(GoRouterRef ref) {
                       GoRoute(
                           path: 'settings',
                           name: AppRoute.setting.name,
-                          parentNavigatorKey: _rootNavigatorKey,
                           pageBuilder: (context, state) {
                             return const MaterialPage(
                                 fullscreenDialog: true, child: SettingScreen());
-                          })
+                          }),
+                      GoRoute(
+                          path: 'attendanceDetail',
+                          name: AppRoute.attendanceDetail.name,
+                          pageBuilder: (context, state) => NoTransitionPage(
+                                child: AttendanceDeailScreen(
+                                    attendance: state.extra! as Attendance),
+                              )),
                     ])
               ],
             ),
@@ -107,7 +116,6 @@ GoRouter goRouter(GoRouterRef ref) {
                       GoRoute(
                           path: 'add',
                           name: AppRoute.addmember.name,
-                          parentNavigatorKey: _rootNavigatorKey,
                           pageBuilder: (context, state) {
                             return const MaterialPage(
                                 fullscreenDialog: true,

@@ -31,7 +31,7 @@ class MemberDetailScreen extends ConsumerWidget {
       body: Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? child) {
         final String? season =
-            ref.read(SharedPrefStringNotifier.provider(SEASON_KEY));
+            ref.read(SharedPrefStringNotifier.provider(seasonKey));
 
         final attendanceByRfidStream =
             ref.watch(attendanceByRfidStreamProvider(season!, member.rfid));
@@ -46,7 +46,7 @@ class MemberDetailScreen extends ConsumerWidget {
   // sign-in the member
   void signIn(BuildContext context, WidgetRef ref) async {
     final String? season =
-        ref.read(SharedPrefStringNotifier.provider(SEASON_KEY));
+        ref.read(SharedPrefStringNotifier.provider(seasonKey));
 
     final attendanceRepository =
         ref.watch(attendanceRepositoryProvider(season!));
@@ -66,7 +66,7 @@ class MemberDetailScreen extends ConsumerWidget {
   // sign-out the member
   void signOut(BuildContext context, WidgetRef ref) async {
     final String? season =
-        ref.read(SharedPrefStringNotifier.provider(SEASON_KEY));
+        ref.read(SharedPrefStringNotifier.provider(seasonKey));
 
     final attendanceRepository =
         ref.watch(attendanceRepositoryProvider(season!));

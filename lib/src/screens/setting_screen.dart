@@ -29,15 +29,14 @@ class _SettingScreenState extends ConsumerState<SettingScreen> {
   Future<void> _submit() async {
     if (_validateAndSaveForm()) {
       ref
-          .read(SharedPrefStringNotifier.provider(SEASON_KEY).notifier)
-          .setString(SEASON_KEY, _season!);
+          .read(SharedPrefStringNotifier.provider(seasonKey).notifier)
+          .setString(seasonKey, _season!);
     }
-    Navigator.of(context, rootNavigator: true).pop(true);
   }
 
   void _loadPreferences() async {
     final String? season =
-        ref.read(SharedPrefStringNotifier.provider(SEASON_KEY));
+        ref.read(SharedPrefStringNotifier.provider(seasonKey));
     setState(() {
       _season = season;
     });

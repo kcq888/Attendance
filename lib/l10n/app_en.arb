@@ -134,5 +134,13 @@
   "nameCanntBeEmpty": "Name Can not be empty",
   "@nameCanntBeEmpty": {
     "description": "name can not be empty for the input field"
+  },
+  "attendanceDetailTitle": "Attendance Detail",
+  "@attendanceDetailTitle": {
+    "description": "member attendance detail for specific day."
+  },
+  "attendanceOccurrenceTitle": "Occurrence",
+  "@attendanceOccurrenceTile": {
+    "description": "number of sign in/out occurrence for a specific day."
   }
 }

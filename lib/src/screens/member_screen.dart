@@ -30,7 +30,7 @@ class MemberScreen extends ConsumerWidget {
       body: Consumer(
         builder: (BuildContext context, WidgetRef ref, Widget? child) {
           final String? season =
-              ref.read(SharedPrefStringNotifier.provider(SEASON_KEY));
+              ref.read(SharedPrefStringNotifier.provider(seasonKey));
           final memberQueryStream = ref.watch(memberStreamProvider(season!));
           return memberQueryStream.when(
               data: (items) => ListView.separated(

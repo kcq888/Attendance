@@ -1,1 +1,2 @@
-const String SEASON_KEY = 'season';
+const String seasonKey = 'season';
+const String dateTimeFormat = 'E MM/dd/yyyy, HH:mm a';

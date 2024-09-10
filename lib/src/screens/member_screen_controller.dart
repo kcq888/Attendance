@@ -24,7 +24,7 @@ class MemberScreenController extends _$MemberScreenController {
   Future<void> deleteMember(Member member) async {
     checkLogin();
     final String? season =
-        ref.read(SharedPrefStringNotifier.provider(SEASON_KEY));
+        ref.read(SharedPrefStringNotifier.provider(seasonKey));
 
     final repository = ref.read(memberRepositoryProvider(season!));
     state = const AsyncLoading();
@@ -35,7 +35,7 @@ class MemberScreenController extends _$MemberScreenController {
   Future<void> updateMember(Member member) async {
     checkLogin();
     final String? season =
-        ref.read(SharedPrefStringNotifier.provider(SEASON_KEY));
+        ref.read(SharedPrefStringNotifier.provider(seasonKey));
 
     final repository = ref.read(memberRepositoryProvider(season!));
     state = const AsyncLoading();
@@ -48,7 +48,7 @@ class MemberScreenController extends _$MemberScreenController {
   Future<void> addMember(Member member) async {
     checkLogin();
     final String? season =
-        ref.read(SharedPrefStringNotifier.provider(SEASON_KEY));
+        ref.read(SharedPrefStringNotifier.provider(seasonKey));
 
     final repository = ref.read(memberRepositoryProvider(season!));
     state = const AsyncLoading();

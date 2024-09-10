@@ -43,7 +43,7 @@ class AttendanceScreen extends ConsumerWidget {
       body: Consumer(
         builder: (context, ref, child) {
           final String? season =
-              ref.read(SharedPrefStringNotifier.provider(SEASON_KEY));
+              ref.read(SharedPrefStringNotifier.provider(seasonKey));
 
           final attendantByDateQueryStream = ref.watch(
               attendanceByDateStreamProvider(
@@ -65,27 +65,29 @@ class AttendanceListTile extends StatelessWidget {
   final Attendance attendance;
   final String _signIn = 'SignIn';
   final String _signOut = 'SignOut';
-  final String _dateFormat = 'E MM/dd/yyyy, HH:mm a';
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-        title: Text(
-          '${attendance.name}  (${AppLocalizations.of(context)!.signInCount}: ${attendance.signInCount})',
-          style: const TextStyle(fontWeight: FontWeight.bold),
-        ),
-        subtitle: Container(
-          alignment: Alignment.centerLeft,
-          child: Column(children: [
-            Row(
-                children: buildTileRowWidgets(
-                    context, attendance, AppLocalizations.of(context)!.signin)),
-            Row(
+      title: Text(
+        '${attendance.name}  (${AppLocalizations.of(context)!.signInCount}: ${attendance.signInCount})',
+        style: const TextStyle(fontWeight: FontWeight.bold),
+      ),
+      subtitle: Container(
+        alignment: Alignment.centerLeft,
+        child: Column(children: [
+          Row(
               children: buildTileRowWidgets(
-                  context, attendance, AppLocalizations.of(context)!.signout),
-            )
-          ]),
-        ));
+                  context, attendance, AppLocalizations.of(context)!.signin)),
+          Row(
+            children: buildTileRowWidgets(
+                context, attendance, AppLocalizations.of(context)!.signout),
+          )
+        ]),
+      ),
+      onTap: () =>
+          context.goNamed(AppRoute.attendanceDetail.name, extra: attendance),
+    );
   }
 
   List<Widget> buildTileRowWidgets(
@@ -94,11 +96,11 @@ class AttendanceListTile extends StatelessWidget {
 
     if (type == _signIn) {
       tileRowWidgets.add(
-          Text(DateFormat(_dateFormat).format(attendance.signIn.toDate())));
+          Text(DateFormat(dateTimeFormat).format(attendance.signIn.toDate())));
     } else if (type == _signOut) {
       if (attendance.hasSignOut) {
-        tileRowWidgets.add(
-            Text(DateFormat(_dateFormat).format(attendance.signOut.toDate())));
+        tileRowWidgets.add(Text(
+            DateFormat(dateTimeFormat).format(attendance.signOut.toDate())));
       } else {
         tileRowWidgets.add(Text(AppLocalizations.of(context)!.hasnotsignout));
       }

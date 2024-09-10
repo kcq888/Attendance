@@ -26,7 +26,7 @@ class EditMemberScreenController extends _$EditMemberScreenController {
     checkLogin();
 
     final String? season =
-        ref.read(SharedPrefStringNotifier.provider(SEASON_KEY));
+        ref.read(SharedPrefStringNotifier.provider(seasonKey));
 
     // set loading state
     state = const AsyncLoading().copyWithPrevious(state);
