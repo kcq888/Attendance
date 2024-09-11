@@ -23,6 +23,7 @@ class MemberScreen extends ConsumerWidget {
           IconButton(
             onPressed: () => context.goNamed(AppRoute.addmember.name),
             icon: const Icon(Icons.add),
+            tooltip: AppLocalizations.of(context)!.addMemberTooltip,
           ),
         ],
         automaticallyImplyLeading: false,

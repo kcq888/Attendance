@@ -33,10 +33,12 @@ class AttendanceScreen extends ConsumerWidget {
         actions: [
           IconButton(
               icon: const Icon(Icons.calendar_month),
-              onPressed: () => _selectDate(context, ref)),
+              onPressed: () => _selectDate(context, ref),
+              tooltip: AppLocalizations.of(context)!.selectADayTooltip),
           IconButton(
               icon: const Icon(Icons.settings),
-              onPressed: () => context.goNamed(AppRoute.setting.name)),
+              onPressed: () => context.goNamed(AppRoute.setting.name),
+              tooltip: AppLocalizations.of(context)!.settingsTooltip),
         ],
         automaticallyImplyLeading: false,
       ),

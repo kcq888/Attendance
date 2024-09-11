@@ -20,11 +20,15 @@ class MemberDetailScreen extends ConsumerWidget {
         title: Text(AppLocalizations.of(context)!.memberDetailsTitle),
         actions: [
           IconButton(
-              onPressed: () => signIn(context, ref),
-              icon: const Icon(Icons.login)),
+            onPressed: () => signIn(context, ref),
+            icon: const Icon(Icons.login),
+            tooltip: AppLocalizations.of(context)!.signInTooltip,
+          ),
           IconButton(
-              onPressed: () => signOut(context, ref),
-              icon: const Icon(Icons.logout))
+            onPressed: () => signOut(context, ref),
+            icon: const Icon(Icons.logout),
+            tooltip: AppLocalizations.of(context)!.signoutTooltip,
+          )
         ],
         automaticallyImplyLeading: false,
       ),

@@ -142,5 +142,37 @@
   "attendanceOccurrenceTitle": "Occurrence",
   "@attendanceOccurrenceTile": {
     "description": "number of sign in/out occurrence for a specific day."
+  },
+  "selectADayTooltip": "Select a day for attendance",
+  "@selectADayTooltip": {
+    "description": "tooltip message to be shown to advise user to select a day to view attendance in the calendar."
+  },
+  "settingsTooltip": "Select to change season database",
+  "@settingsTooltip": {
+    "description": "tooltip message to be shown to change the season setting."
+  },
+  "addMemberTooltip": "Add new member to the team.",
+  "@addMemberTooltip": {
+    "description": "tooltip to show that user can add member."
+  },
+  "signInTooltip": "Sign in the selected member",
+  "@signInTooltip": {
+    "description": "tooltip for signing the selected member."
+  },
+  "signoutTooltip": "Sign out the selected member",
+  "@signoutTooltip": {
+    "description": "tooltip for signing out the selected member."
+  },
+  "attendanceNavTooltip": "Select to see a list of attendances.",
+  "@attendanceNavTooltip": {
+    "description": "select the navigation button to show a list of attendances."
+  },
+  "membersTitle": "Select to see a list of members.",
+  "@membersTitle": {
+    "description": "select the navigation button to show a list of members."
+  },
+  "profileTooltip": "select to show the user profile.",
+  "@profileTooltip": {
+    "description": "select the navigation to show the user profile."
   }
 }
