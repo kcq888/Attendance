@@ -25,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -72,5 +69,15 @@ class DefaultFirebaseOptions {
     storageBucket: 'attendant-851c0.appspot.com',
     iosClientId: '997114318074-edmvbepcfhku0of214mpqp01s7rn0pjl.apps.googleusercontent.com',
     iosBundleId: 'com.trekware.attendance',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyBxUpFxVfebmyHcLE6l_LpOcwEjGz-JNLM',
+    appId: '1:997114318074:ios:e3f67bfa3d83973bdacd43',
+    messagingSenderId: '997114318074',
+    projectId: 'attendant-851c0',
+    storageBucket: 'attendant-851c0.appspot.com',
+    iosClientId: '997114318074-bk5jv28b67eeoo7p5e6nibhb11cth2n9.apps.googleusercontent.com',
+    iosBundleId: 'com.toughtechs.attendance.RunnerTests',
   );
 }
